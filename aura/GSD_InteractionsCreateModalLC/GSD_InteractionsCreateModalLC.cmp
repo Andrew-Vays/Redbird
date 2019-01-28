@@ -1,0 +1,87 @@
+<aura:component controller="GSD_InteractionsModalControllerApex">
+    <aura:handler event="c:GSD_saveModalEventLE" action="{!c.openModalEvent}"/>
+    <aura:registerEvent name="saveModalEvent" type="c:GSD_saveModalEventLE"/>
+    
+    <aura:attribute name="selectedContactLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedOpportunitiesLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedAccountLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedOwnerLookUpRecord" type="sObject" />
+    <aura:attribute name="InteractionType" type="String"/>
+	<aura:attribute name="InteractionDate" type="String"/>
+    <aura:attribute name="Note" type="String"/>
+    <aura:attribute name="Title" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-form slds-form_stacked" role="list">
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                    <div class="slds-form-element__control">
+                        <ui:inputText value="{!v.Title}" aura:id="Title" label="Title"  required="true"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <lightning:select  value="{!v.InteractionType}" aura:id="field" name="InteractionType" label="Type" required="true">
+                    <option value="">choose one...</option>
+                    <option value="Left Voicemail">Left Voicemail</option>
+                    <option value="Email Exchange">Email Exchange</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Call">Call</option>
+                    <option value="Internal">Internal </option>
+                </lightning:select>
+            </div>
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+				<lightning:input aura:id="field" type="date" required="true" value="{!v.InteractionDate}" name="InteractionDate" label="Enter a date" />
+            </div>
+        </div>
+        
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <c:GSD_customLookupLC objectAPIName="user" IconName="standard:user" selectedRecord="{!v.selectedOwnerLookUpRecord}" label="Owner"/>
+                
+            </div>
+        </div>
+
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <c:GSD_reUsableMultiSelectLookupLC objectAPIName="contact"
+                                                   IconName="standard:contact"
+                                                   lstSelectedRecords="{!v.selectedContactLookUpRecords}"
+                                                   label="Contacts"/>
+            </div>
+        </div>       
+        
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <c:GSD_reUsableMultiSelectLookupLC objectAPIName="Opportunity"
+                                                   IconName="standard:opportunity"
+                                                   lstSelectedRecords="{!v.selectedOpportunitiesLookUpRecords}"
+                                                   label="Opportunities"/>
+            </div>
+        </div>     
+        
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <c:GSD_reUsableMultiSelectLookupLC objectAPIName="account"
+                                                   IconName="standard:account"
+                                                   lstSelectedRecords="{!v.selectedAccountLookUpRecords}"
+                                                   label="Accounts"/>
+            </div>
+        </div>     
+        
+        <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                    <div class="slds-form-element__control">
+                         <ui:inputTextArea value="{!v.Note}" aura:id="comments" label="Note" rows="3"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

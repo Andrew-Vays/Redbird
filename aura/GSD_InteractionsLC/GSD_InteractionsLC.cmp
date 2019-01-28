@@ -1,0 +1,14 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:registerEvent name="refreshBody" type="c:GSD_refreshInteractionsBodyLE"/>
+    <aura:attribute name="recordId" type="Id" />
+    
+    <div class="slds-box" style="margin: 1px">
+        <lightning:card  iconName ="standard:logging" title="Interactions">
+            <aura:set attribute="actions">
+                <lightning:button name="New" label="New" onclick="{!c.handleShowModal}"/>
+            </aura:set>
+                <c:GSD_InteractionsBodyLC recordId="{!v.recordId}" />
+        </lightning:card>
+    </div>
+</aura:component>
